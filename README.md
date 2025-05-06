@@ -1,6 +1,6 @@
 # Anomaly-Frame-Work-for-Ambient-Assistance-Living-System-using-AR
 # Overview
-This project focuses on Anomaly Frame Workfor in Ambient Assisted Living environments. Using augmented reality and machine learning, it supports elderly or disabled individuals by identifying their actions and offering real-time assistance based on those actions.
+This project focuses on Anomaly Frame Work for in Ambient Assisted Living environments. Using augmented reality and machine learning, it supports elderly or disabled individuals by identifying their actions and offering real-time assistance based on those actions.
 
 # Features
 - Personalized 3D avatars for user interaction
