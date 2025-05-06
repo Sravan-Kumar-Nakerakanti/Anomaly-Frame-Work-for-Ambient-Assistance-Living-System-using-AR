@@ -1,0 +1,45 @@
+<!-- # monitoring/templates/video_feed.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Feed with AR Avatar</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/video_feed.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="video-feed">
+            {% if message %}
+                <p>{{ message }}</p>
+            {% else %}
+                <img src="{% url 'video_feed' %}" alt="Video Feed" />
+            {% endif %}
+        </div>
+        <div class="task-input">
+            <input type="text" id="taskInput" placeholder="Enter task"/>
+            <button onclick="sendTask()">Send Task</button>
+        </div>
+    </div>
+    <h2>User Profile</h2>
+    <p>Name: {{ user.first_name }} {{ user.last_name }}</p>
+    <p>Email: {{ user.email }}</p>
+    <h3>Elder Parent Details</h3>
+    <p>Name: {{ elder_parent.name }}</p>
+    <p>Health Conditions: {{ elder_parent.health_conditions }}</p>
+    <div class="images">
+        <img src="{{ elder_parent.front_image.url }}" alt="Front View">
+        <img src="{{ elder_parent.back_image.url }}" alt="Back View">
+    </div>
+    <div class="images">
+        <img src="{{ elder_parent.left_image.url }}" alt="Left Side View">
+        <img src="{{ elder_parent.right_image.url }}" alt="Right Side View">
+    </div>
+    <div class="buttons">
+        <a href="{% url 'update_profile' %}">Update Profile</a>
+        <a href="{% url 'home' %}">Back to Home</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+</body>
+</html>

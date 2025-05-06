@@ -1,0 +1,85 @@
+<!-- # monitoring/templates/ar_view.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ambient Assistance AR</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.7.2/aframe/build/aframe-ar.js"></script>
+</head>
+<body style="margin: 0;">
+    <a-scene embedded arjs="sourceType: webcam;">
+        <!-- Lighting for the model -->
+        <a-light type="ambient" color="#ffffff"></a-light>
+        <a-light type="directional" position="1 1 0" intensity="0.5"></a-light>
+
+        <a-entity id="grandparentModel"
+                  gltf-model="url(/static/models/model 2.glb)" 
+                  position="0 1.6 -2" 
+                  scale="0.5 0.5 0.5"
+                  rotation="0 0 0"
+                  animation-mixer
+                  material="color: #ffffff"></a-entity>
+
+        <a-camera></a-camera>
+
+        <a-plane position="0 1 -2.5" rotation="-90 0 0" width="1" height="1" color="#CCCCCC">
+            <a-box position="0.4 0 0" depth="0.1" height="0.2" width="0.2" color="#4CAF50"
+                   onclick="increaseScale()"></a-box>
+            <a-text value="+" position="0.4 0.1 0" align="center"></a-text>
+
+            <a-box position="-0.4 0 0" depth="0.1" height="0.2" width="0.2" color="#F44336"
+                   onclick="decreaseScale()"></a-box>
+            <a-text value="-" position="-0.4 0.1 0" align="center"></a-text>
+
+            <a-box position="-0.1 0.4 0" depth="0.1" height="0.2" width="0.2" color="#2196F3"
+                   onclick="rotateLeft()"></a-box>
+            <a-text value="↺" position="-0.1 0.5 0" align="center"></a-text>
+
+            <a-box position="0.1 0.4 0" depth="0.1" height="0.2" width="0.2" color="#FFC107"
+                   onclick="rotateRight()"></a-box>
+            <a-text value="↻" position="0.1 0.5 0" align="center"></a-text>
+        </a-plane>
+    </a-scene>
+
+    <script>
+        var model = document.querySelector('#grandparentModel');
+
+        function increaseScale() {
+            var scale = model.getAttribute('scale');
+            model.setAttribute('scale', {
+                x: scale.x + 0.1,
+                y: scale.y + 0.1,
+                z: scale.z + 0.1
+            });
+        }
+
+        function decreaseScale() {
+            var scale = model.getAttribute('scale');
+            model.setAttribute('scale', {
+                x: scale.x - 0.1,
+                y: scale.y - 0.1,
+                z: scale.z - 0.1
+            });
+        }
+
+        function rotateLeft() {
+            var rotation = model.getAttribute('rotation');
+            model.setAttribute('rotation', {
+                x: rotation.x,
+                y: rotation.y - 10,
+                z: rotation.z
+            });
+        }
+
+        function rotateRight() {
+            var rotation = model.getAttribute('rotation');
+            model.setAttribute('rotation', {
+                x: rotation.x,
+                y: rotation.y + 10,
+                z: rotation.z
+            });
+        }
+    </script>
+</body>
+</html>
+

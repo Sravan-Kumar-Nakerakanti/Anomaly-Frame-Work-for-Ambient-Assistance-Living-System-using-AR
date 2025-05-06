@@ -1,0 +1,51 @@
+<!-- health_recommendations.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Recommendations</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/health_recommendations.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Health Recommendations</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit Health Record</button>
+        </form>
+        <h3>Your Tasks</h3>
+        <form id="taskForm" method="post">
+            {% csrf_token %}
+            {{ task_form.as_p }}
+            <button type="submit">Add Task</button>
+        </form>
+        <ul>
+            {% for task in tasks %}
+                <li>
+                    {{ task.task_name }} 
+                    <a href="{% url 'delete_task' task.id %}">Delete</a>
+                </li>
+            {% endfor %}
+        </ul>
+        {% if recommendations %}
+            <h3>Recommendations</h3>
+            <div>
+                {% for disease, recommendation in recommendations.recommendations.items %}
+                    <h4>{{ disease }}</h4>
+                    <p><strong>Description:</strong> {{ recommendation.description }}</p>
+                    <p><strong>Diet:</strong> {{ recommendation.diet }}</p>
+                    <p><strong>Medication:</strong> {{ recommendation.medication }}</p>
+                    <p><strong>Precaution:</strong> {{ recommendation.precaution }}</p>
+                    <p><strong>Symptom:</strong> {{ recommendation.symptom }}</p>
+                    <p><strong>Workout:</strong> {{ recommendation.workout }}</p>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No recommendations available.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

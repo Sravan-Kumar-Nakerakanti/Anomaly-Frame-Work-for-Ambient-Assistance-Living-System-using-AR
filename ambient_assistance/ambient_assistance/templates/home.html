@@ -1,0 +1,30 @@
+<!-- # monitoring/templates/home.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome, {{ user.username }}</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'ar_view' %}">AR Environment</a></li>
+                <li><a href="{% url 'video_feed' %}">Video Feed</a></li>
+                <li><a href="{% url 'view_anomalies' %}">Anomaly Videos</a></li>
+                <li><a href="{% url 'health_recommendations' %}">Health Recommendations</a></li>
+                <li><a href="{% url 'profile' %}">My Profile</a></li>
+                <li><a href="{% url 'live_web_monitoring' %}">Live Web Monitoring</a></li>
+            </ul>
+        </nav>
+        <div class="buttons">
+            <a href="{% url 'logout' %}">Logout</a>
+            <a href="{% url 'login' %}" class="back-button">Back to Login</a>
+        </div>
+    </div>
+</body>
+</html>

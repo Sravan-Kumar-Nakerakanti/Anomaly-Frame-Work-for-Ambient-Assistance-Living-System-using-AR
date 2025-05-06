@@ -1,0 +1,47 @@
+<!-- live_monitoring.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Live Web Monitoring</title>
+</head>
+<body>
+    <h1>Live Web Monitoring</h1>
+    <video id="webcam" autoplay playsinline></video>
+    <canvas id="overlay" style="display: none;"></canvas>
+    <p>Recognized Action: <span id="action"></span></p>
+
+    <script>
+        const video = document.getElementById('webcam');
+        const canvas = document.getElementById('overlay');
+        const actionElement = document.getElementById('action');
+        const context = canvas.getContext('2d');
+
+        async function setupWebcam() {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            video.srcObject = stream;
+            video.addEventListener('loadeddata', () => {
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+            });
+        }
+
+        setupWebcam();
+
+        const ws = new WebSocket('ws://' + window.location.host + '/ws/live_monitoring/');
+
+        ws.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            actionElement.textContent = data.action; // Update action text
+        };
+
+        function captureFrame() {
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const frame = canvas.toDataURL('image/jpeg');
+            ws.send(frame); // Send the captured frame to the server
+        }
+
+        setInterval(captureFrame, 1000 / 30); // Capture frames at ~30 FPS
+    </script>
+</body>
+</html>

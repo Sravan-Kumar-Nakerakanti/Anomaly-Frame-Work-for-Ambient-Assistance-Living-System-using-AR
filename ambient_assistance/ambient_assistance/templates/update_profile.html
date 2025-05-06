@@ -1,0 +1,25 @@
+<!-- # monitoring/templates/update_profile.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Profile</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/update_profile.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h2>Update Profile</h2>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ user_form.as_p }}
+                {{ parent_form.as_p }}
+                {{ profile_form.as_p }}
+                <button type="submit">Update</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
